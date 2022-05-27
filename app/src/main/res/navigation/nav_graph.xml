@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SessionListFragment">
+
+    <fragment
+        android:id="@+id/SessionListFragment"
+        android:name="cz.mendelu.project_xdivis1.SessionListFragment"
+        android:label="Sessions"
+        tools:layout="@layout/fragment_session_list">
+
+        <action
+            android:id="@+id/action_list_to_add_session"
+            app:destination="@id/AddSessionFragment">
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddSessionFragment"
+        android:name="cz.mendelu.project_xdivis1.AddSessionFragment"
+        android:label="Add session"
+        tools:layout="@layout/fragment_add_session"
+        >
+        <action app:destination="@+id/MapsFragment"
+            android:id="@+id/action_add_session_to_map"/>
+
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L">
+        </argument>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/MapsFragment"
+        android:name="cz.mendelu.project_xdivis1.MapsFragment"
+        tools:layout="@layout/fragment_maps"
+        android:label="Map"
+        >
+
+        <argument
+            android:name="latitude"
+            app:argType="float"
+            android:defaultValue="0.0">
+        </argument>
+
+        <argument
+            android:name="longitude"
+            app:argType="float"
+            android:defaultValue="0.0">
+        </argument>
+
+    </fragment>
+
+
+</navigation>

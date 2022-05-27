@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddSessionFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <cz.mendelu.project_xdivis1.TextInputView
+            android:id="@+id/sessionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Where have you been?"/>
+
+        <cz.mendelu.project_xdivis1.TextInputView
+            android:id="@+id/sessionDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="how much money did you pay?"/>
+
+       <cz.mendelu.project_xdivis1.view.InfoView
+           android:id="@+id/sessionDate"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:header="Date"
+           app:value="Not set"
+           app:image="@drawable/ic_calendar_month"
+           />
+
+        <cz.mendelu.project_xdivis1.view.InfoView
+            android:id="@+id/sessionLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header="Location"
+            app:value="Not set"
+            app:image="@drawable/ic_place"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"/>
+
+
+
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
