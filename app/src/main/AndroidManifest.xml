@@ -50,6 +50,7 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.project_xdivis1.NoActionBar">
         </activity>
+        <activity android:name=".MarkerActivity"/>
     </application>
 
 </manifest>

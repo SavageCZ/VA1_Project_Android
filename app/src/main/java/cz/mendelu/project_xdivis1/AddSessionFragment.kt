@@ -42,16 +42,22 @@ class AddSessionFragment : BaseFragment<FragmentAddSessionBinding, AddSessionVie
         setInteractionListeners()
 
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Double>("latitude")
-            ?.observe(viewLifecycleOwner, {
-            viewModel.session.latitude = it
-            findNavController().currentBackStackEntry?.savedStateHandle?.remove<Double>("latitude")
-            setLocation()
-        })
-
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Double>("longitude")
+        findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Double>("latitude")
             ?.observe(viewLifecycleOwner, {
                 viewModel.session.latitude = it
+                findNavController().currentBackStackEntry?.savedStateHandle?.remove<Double>("latitude")
+                setLocation()
+            })
+
+        findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Double>("longitude")
+            ?.observe(viewLifecycleOwner, {
+                viewModel.session.longitude = it
                 findNavController().currentBackStackEntry?.savedStateHandle?.remove<Double>("longitude")
                 setLocation()
             })

@@ -2,6 +2,8 @@ package cz.mendelu.project_xdivis1
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import cz.mendelu.project_xdivis1.architecture.BaseFragment
 import cz.mendelu.project_xdivis1.databinding.FragmentMapsBinding
 
+
 class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewModel::class) {
 
     private val arguments: MapsFragmentArgs by navArgs()
@@ -22,17 +25,17 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
     private val callback = OnMapReadyCallback { googleMap ->
 
         var position: LatLng
-        if(viewModel.latitude != null && viewModel.longitude != null){
+        if (viewModel.latitude != null && viewModel.longitude != null) {
             position = LatLng(viewModel.latitude!!, viewModel.longitude!!)
         } else {
             position = LatLng(49.21230328880893, 16.610911391240876)
         }
 
-        val markerOptions  = MarkerOptions().position(position).draggable(true)
+        val markerOptions = MarkerOptions().position(position).draggable(true)
         val marker = googleMap.addMarker(markerOptions)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10.0f))
 
-        googleMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener{
+        googleMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
             override fun onMarkerDrag(p0: Marker) {
 
             }
@@ -62,7 +65,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
     override fun initViews() {
 
         setHasOptionsMenu(true) // na tohle bacha!!
-        if (arguments.latitude != 0.0f && arguments.longitude != 0.0f){
+        if (arguments.latitude != 0.0f && arguments.longitude != 0.0f) {
             viewModel.latitude = arguments.latitude.toDouble()
             viewModel.longitude = arguments.longitude.toDouble()
         }
@@ -78,12 +81,12 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean { //připravený kód pro více tlačítek v mapě
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.action_save -> {
                 findNavController().previousBackStackEntry
-                    ?.savedStateHandle?.set("latitude",viewModel.latitude)
+                    ?.savedStateHandle?.set("latitude", viewModel.latitude)
                 findNavController().previousBackStackEntry
-                    ?.savedStateHandle?.set("longitude",viewModel.longitude)
+                    ?.savedStateHandle?.set("longitude", viewModel.longitude)
                 finishCurrentFragment()
 
                 //  do projektu - tlačítka
@@ -93,6 +96,5 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
         }
     }
 
-
-
 }
+
