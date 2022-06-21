@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.maps.GoogleMap
 import cz.mendelu.project_xdivis1.architecture.BaseFragment
 import cz.mendelu.project_xdivis1.databinding.FragmentAddSessionBinding
 import cz.mendelu.project_xdivis1.extensions.round
@@ -198,7 +199,6 @@ class AddSessionFragment : BaseFragment<FragmentAddSessionBinding, AddSessionVie
 
         dialog.show()
     }
-
 
 
 }

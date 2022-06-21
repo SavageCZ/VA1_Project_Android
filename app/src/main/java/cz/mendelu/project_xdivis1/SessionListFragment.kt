@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.GoogleMap
 import cz.mendelu.project_xdivis1.architecture.BaseFragment
 import cz.mendelu.project_xdivis1.databinding.FragmentSessionListBinding
 import cz.mendelu.project_xdivis1.databinding.RowSessionListBinding
@@ -134,5 +135,6 @@ class SessionListFragment :
     override fun onActivityCreated() {
 
     }
+
 
 }

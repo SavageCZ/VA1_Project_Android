@@ -1,9 +1,16 @@
 package cz.mendelu.project_xdivis1
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.*
+import android.widget.ImageView
+import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat.setContentDescription
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
@@ -16,11 +23,14 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import cz.mendelu.project_xdivis1.architecture.BaseFragment
 import cz.mendelu.project_xdivis1.databinding.FragmentMapsBinding
+import cz.mendelu.project_xdivis1.databinding.FragmentAddSessionBinding
 
 
 class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewModel::class) {
 
     private val arguments: MapsFragmentArgs by navArgs()
+
+    private lateinit var map: GoogleMap
 
     private val callback = OnMapReadyCallback { googleMap ->
 
@@ -31,9 +41,10 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             position = LatLng(49.21230328880893, 16.610911391240876)
         }
 
-        val markerOptions = MarkerOptions().position(position).draggable(true)
+        val markerOptions = MarkerOptions().position(position).draggable(true).title("marker")
         val marker = googleMap.addMarker(markerOptions)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10.0f))
+
 
         googleMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
             override fun onMarkerDrag(p0: Marker) {
@@ -44,6 +55,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
                 viewModel.latitude = p0.position.latitude
                 viewModel.longitude = p0.position.longitude
                 viewModel.locationChanged = true
+
             }
 
             override fun onMarkerDragStart(p0: Marker) {
@@ -72,7 +84,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
     }
 
     override fun onActivityCreated() {
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -95,6 +106,8 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 
 }
 

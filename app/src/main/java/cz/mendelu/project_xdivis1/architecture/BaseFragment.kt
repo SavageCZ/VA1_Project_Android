@@ -2,6 +2,7 @@ package cz.mendelu.project_xdivis1.architecture
 
 import android.content.Context
 import android.os.Bundle
+import android.os.RemoteException
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,12 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
+import com.google.android.gms.maps.internal.zzh
+import com.google.android.gms.maps.model.RuntimeRemoteException
 import com.google.android.material.snackbar.Snackbar
+import cz.mendelu.project_xdivis1.MapsFragment
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import kotlin.reflect.KClass
 
@@ -77,4 +83,5 @@ abstract class BaseFragment<B : ViewBinding,
     fun showSnackbar(text: String){
         Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).show()
     }
+
 }
