@@ -89,16 +89,17 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             viewModel.longitude = arguments.longitude.toDouble()
         }
 
-    /*
+
         viewModel
             .getAll()
             .observe(viewLifecycleOwner, object : Observer<MutableList<Session>> {
                 override fun onChanged(t: MutableList<Session>?) {
-                    addMarkersToMap()
+                    //addMarkersToMap()
                     sessionsList.clear()
                     sessionsList.addAll(t!!)
                 }
 
+                /*
                 private fun addMarkersToMap() {
 
                     val placeDetailsMap = mutableMapOf(
@@ -166,6 +167,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
                 }
             })
     */
+    })
     }
 
     override fun onActivityCreated() {
