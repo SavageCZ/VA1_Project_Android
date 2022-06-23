@@ -2,47 +2,33 @@ package cz.mendelu.project_xdivis1
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.*
-import android.widget.ImageView
-import android.widget.RadioGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuItemCompat.setContentDescription
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import cz.mendelu.project_xdivis1.SessionListFragment.TasksAdapter
 import cz.mendelu.project_xdivis1.architecture.BaseFragment
 import cz.mendelu.project_xdivis1.databinding.FragmentMapsBinding
-import cz.mendelu.project_xdivis1.databinding.FragmentAddSessionBinding
-import cz.mendelu.project_xdivis1.databinding.RowSessionListBinding
+import cz.mendelu.project_xdivis1.di.repositoryModule
 import cz.mendelu.project_xdivis1.model.Session
 
 
 class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewModel::class) {
 
     private val arguments: MapsFragmentArgs by navArgs()
-    private lateinit var map: GoogleMap
     private val sessionsList: MutableList<Session> = mutableListOf()
     private lateinit var adapter: TasksAdapter
     private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var map: GoogleMap
 
     private val callback = OnMapReadyCallback { googleMap ->
-
 
         var position: LatLng
         if (viewModel.latitude != null && viewModel.longitude != null) {
@@ -80,7 +66,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
 
                 return false
             }
-
         })
 
 
@@ -96,29 +81,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
     override val bindingInflater: (LayoutInflater) -> FragmentMapsBinding
         get() = FragmentMapsBinding::inflate
 
-
-    inner class TaskDiffUtils(private val oldList: MutableList<Session>,
-                              private val newList: MutableList<Session>) : DiffUtil.Callback() {
-
-        override fun getOldListSize(): Int = oldList.size
-
-        override fun getNewListSize(): Int = newList.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].text == newList[newItemPosition].text &&
-                    return oldList[oldItemPosition].description == newList[newItemPosition].description
-        }
-
-
-    }
-
-
-
-
     override fun initViews() {
 
         setHasOptionsMenu(true) // na tohle bacha!!
@@ -127,18 +89,83 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             viewModel.longitude = arguments.longitude.toDouble()
         }
 
-
+    /*
         viewModel
             .getAll()
             .observe(viewLifecycleOwner, object : Observer<MutableList<Session>> {
                 override fun onChanged(t: MutableList<Session>?) {
+                    addMarkersToMap()
                     sessionsList.clear()
                     sessionsList.addAll(t!!)
                 }
+
+                private fun addMarkersToMap() {
+
+                    val placeDetailsMap = mutableMapOf(
+                        // Uses a coloured icon
+                        "BRISBANE" to PlaceDetails(
+                            position = places.getValue("BRISBANE"),
+                            title = "Brisbane",
+                            snippet = "Population: 2,074,200",
+                            icon = BitmapDescriptorFactory
+                                .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
+                        ),
+
+                        // Uses a custom icon with the info window popping out of the center of the icon.
+                        "SYDNEY" to PlaceDetails(
+                            position = places.getValue("SYDNEY"),
+                            title = "Sydney",
+                            snippet = "Population: 4,627,300",
+                            infoWindowAnchorX = 0.5f,
+                            infoWindowAnchorY = 0.5f
+                        ),
+
+                        // Will create a draggable marker. Long press to drag.
+                        "MELBOURNE" to PlaceDetails(
+                            position = places.getValue("MELBOURNE"),
+                            title = "Melbourne",
+                            snippet = "Population: 4,137,400",
+                            draggable = true
+                        ),
+
+                        // Use a vector drawable resource as a marker icon.
+                        "ALICE_SPRINGS" to PlaceDetails(
+                            position = places.getValue("ALICE_SPRINGS"),
+                            title = "Alice Springs",
+                        ),
+
+                        // More markers for good measure
+                        "PERTH" to PlaceDetails(
+                            position = places.getValue("PERTH"),
+                            title = "Perth",
+                            snippet = "Population: 1,738,800"
+                        ),
+
+                        "ADELAIDE" to PlaceDetails(
+                            position = places.getValue("ADELAIDE"),
+                            title = "Adelaide",
+                            snippet = "Population: 1,213,000"
+                        )
+
+                    )
+
+                    // place markers for each of the defined locations
+                    placeDetailsMap.keys.map {
+                        with(placeDetailsMap.getValue(it)) {
+                            map.addMarker(MarkerOptions()
+                                .position(position)
+                                .title(title)
+                                .snippet(snippet)
+                                .icon(icon)
+                                .infoWindowAnchor(infoWindowAnchorX, infoWindowAnchorY)
+                                .draggable(draggable)
+                                .zIndex(zIndex))
+
+                        }
+                    }
+                }
             })
-
-
-
+    */
     }
 
     override fun onActivityCreated() {
@@ -165,9 +192,30 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
         }
     }
 //on MarkerClick + přes observer ty markery....
+class PlaceDetails(
+    val position: LatLng,
+    val title: String = "Marker",
+    val snippet: String? = null,
+    val icon: BitmapDescriptor = BitmapDescriptorFactory.defaultMarker(),
+    val infoWindowAnchorX: Float = 0.5F,
+    val infoWindowAnchorY: Float = 0F,
+    val draggable: Boolean = false,
+    val zIndex: Float = 0F) {
+}
 
-
+    /** map to store place names and locations */
+    private val places = mapOf(
+        "BRISBANE" to LatLng(-27.47093, 153.0235),
+        "MELBOURNE" to LatLng(-37.81319, 144.96298),
+        "DARWIN" to LatLng(-12.4634, 130.8456),
+        "SYDNEY" to LatLng(-33.87365, 151.20689),
+        "ADELAIDE" to LatLng(-34.92873, 138.59995),
+        "PERTH" to LatLng(-31.952854, 115.857342),
+        "ALICE_SPRINGS" to LatLng(-24.6980, 133.8807)
+    )
 
 
 }
+
+
 

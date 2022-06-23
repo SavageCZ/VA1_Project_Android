@@ -58,10 +58,32 @@
             app:destination="@id/notesFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/notesFragment"
-        android:name="cz.mendelu.project_xdivis1.NotesFragment"
-        android:label="NotesFragment" />
+        android:name="cz.mendelu.project_xdivis1.NotesListFragment"
+        android:label="NotesFragment" >
+
+        <action
+            android:id="@+id/action_notesFragment_to_addNotesFragment"
+            app:destination="@id/addNotesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNotesFragment"
+        android:name="cz.mendelu.project_xdivis1.AddNotesFragment"
+        android:label="AddNotesFragment" >
+
+        <argument
+            android:name="plan_id"
+            app:argType="long"
+            android:defaultValue="-1L">
+        </argument>
+        <argument
+            android:name="idNewExercise"
+            app:argType="long"
+            android:defaultValue="-1L">
+        </argument>
+    </fragment>
 
 
 </navigation>

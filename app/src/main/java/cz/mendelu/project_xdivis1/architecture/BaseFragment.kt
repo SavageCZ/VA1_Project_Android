@@ -84,5 +84,4 @@ abstract class BaseFragment<B : ViewBinding,
     fun showSnackbar(text: String){
         Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).show()
     }
-
 }

@@ -6,9 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import cz.mendelu.project_xdivis1.model.Notes
 import cz.mendelu.project_xdivis1.model.Session
+import cz.mendelu.project_xdivis1.model.UsedExercise
 
-@Database(entities = [Session::class], version = 5, exportSchema = true)
+@Database(entities = [Session::class, Notes::class, UsedExercise::class], version = 7, exportSchema = true)
 abstract class SessionsDatabase : RoomDatabase(){
 
     abstract fun tasksDao(): SessionsDao
@@ -32,6 +34,7 @@ abstract class SessionsDatabase : RoomDatabase(){
         private val MIGRATION_1_2: Migration = object : Migration(1,2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE sessions ADD COLUMN 'description' TEXT")
+                database.execSQL("ALTER TABLE notes ADD COLUMN 'name' TEXT")
             }
 
 
