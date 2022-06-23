@@ -7,30 +7,26 @@
     tools:context="AddNotesFragment">
 
     <cz.mendelu.project_xdivis1.TextInputView
-
-        android:id="@+id/planName"
+        android:id="@+id/noteName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_anchorGravity="bottom|center"
-        app:hint="Plan name"
+        app:hint="Note"
         tools:ignore="MissingClass,MissingConstraints">
-
     </cz.mendelu.project_xdivis1.TextInputView>
+
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/savePlanButton"
+        android:id="@+id/saveNoteButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
-        app:layout_anchor="@+id/planName"
+        app:layout_anchor="@+id/noteName"
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/planName" />
-
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/noteName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usedExerciseList"
@@ -38,16 +34,5 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" />
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_NewExercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

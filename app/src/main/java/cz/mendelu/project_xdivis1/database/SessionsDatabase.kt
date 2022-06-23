@@ -10,7 +10,7 @@ import cz.mendelu.project_xdivis1.model.Notes
 import cz.mendelu.project_xdivis1.model.Session
 import cz.mendelu.project_xdivis1.model.UsedExercise
 
-@Database(entities = [Session::class, Notes::class, UsedExercise::class], version = 7, exportSchema = true)
+@Database(entities = [Session::class, Notes::class, UsedExercise::class], version = 8, exportSchema = true)
 abstract class SessionsDatabase : RoomDatabase(){
 
     abstract fun tasksDao(): SessionsDao

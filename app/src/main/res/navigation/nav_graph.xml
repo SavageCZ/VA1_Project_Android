@@ -62,7 +62,8 @@
     <fragment
         android:id="@+id/notesFragment"
         android:name="cz.mendelu.project_xdivis1.NotesListFragment"
-        android:label="NotesFragment" >
+        android:label="NotesFragment"
+        tools:layout="@layout/fragment_notes_list">
 
         <action
             android:id="@+id/action_notesFragment_to_addNotesFragment"
@@ -71,18 +72,22 @@
     <fragment
         android:id="@+id/addNotesFragment"
         android:name="cz.mendelu.project_xdivis1.AddNotesFragment"
-        android:label="AddNotesFragment" >
+        android:label="AddNotesFragment"
+        tools:layout="@layout/fragment_add_notes">
 
         <argument
-            android:name="plan_id"
+            android:name="id"
             app:argType="long"
             android:defaultValue="-1L">
         </argument>
         <argument
-            android:name="idNewExercise"
+            android:name="idPlan"
             app:argType="long"
             android:defaultValue="-1L">
         </argument>
+        <action
+            android:id="@+id/action_addNotesFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
     </fragment>
 
 
