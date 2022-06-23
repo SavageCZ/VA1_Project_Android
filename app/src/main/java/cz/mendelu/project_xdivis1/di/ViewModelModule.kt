@@ -17,7 +17,7 @@ val viewModelModule = module {
     }
 
     viewModel{
-        MapsViewModel() // nemůžeme uložit do databáze, proto bez get()
+        MapsViewModel(get()) // nemůžeme uložit do databáze, proto bez get()
     }
 
 }

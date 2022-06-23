@@ -8,7 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import cz.mendelu.project_xdivis1.model.Session
 
-@Database(entities = [Session::class], version = 4, exportSchema = true)
+@Database(entities = [Session::class], version = 5, exportSchema = true)
 abstract class SessionsDatabase : RoomDatabase(){
 
     abstract fun tasksDao(): SessionsDao

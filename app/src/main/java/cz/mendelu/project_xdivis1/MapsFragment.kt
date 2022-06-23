@@ -11,8 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuItemCompat.setContentDescription
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,18 +25,24 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import cz.mendelu.project_xdivis1.SessionListFragment.TasksAdapter
 import cz.mendelu.project_xdivis1.architecture.BaseFragment
 import cz.mendelu.project_xdivis1.databinding.FragmentMapsBinding
 import cz.mendelu.project_xdivis1.databinding.FragmentAddSessionBinding
+import cz.mendelu.project_xdivis1.databinding.RowSessionListBinding
+import cz.mendelu.project_xdivis1.model.Session
 
 
 class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewModel::class) {
 
     private val arguments: MapsFragmentArgs by navArgs()
-
     private lateinit var map: GoogleMap
+    private val sessionsList: MutableList<Session> = mutableListOf()
+    private lateinit var adapter: TasksAdapter
+    private lateinit var layoutManager: LinearLayoutManager
 
     private val callback = OnMapReadyCallback { googleMap ->
+
 
         var position: LatLng
         if (viewModel.latitude != null && viewModel.longitude != null) {
@@ -63,6 +73,18 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             }
         })
 
+
+        googleMap.setOnMarkerClickListener (object : GoogleMap.OnMarkerClickListener{
+            override fun onMarkerClick(p0: Marker): Boolean {
+                findNavController().navigate(MapsFragmentDirections.actionMapsFragmentToNotesFragment())
+
+                return false
+            }
+
+        })
+
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,6 +96,29 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
     override val bindingInflater: (LayoutInflater) -> FragmentMapsBinding
         get() = FragmentMapsBinding::inflate
 
+
+    inner class TaskDiffUtils(private val oldList: MutableList<Session>,
+                              private val newList: MutableList<Session>) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldList.size
+
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].text == newList[newItemPosition].text &&
+                    return oldList[oldItemPosition].description == newList[newItemPosition].description
+        }
+
+
+    }
+
+
+
+
     override fun initViews() {
 
         setHasOptionsMenu(true) // na tohle bacha!!
@@ -81,6 +126,19 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             viewModel.latitude = arguments.latitude.toDouble()
             viewModel.longitude = arguments.longitude.toDouble()
         }
+
+
+        viewModel
+            .getAll()
+            .observe(viewLifecycleOwner, object : Observer<MutableList<Session>> {
+                override fun onChanged(t: MutableList<Session>?) {
+                    sessionsList.clear()
+                    sessionsList.addAll(t!!)
+                }
+            })
+
+
+
     }
 
     override fun onActivityCreated() {
@@ -106,6 +164,8 @@ class MapsFragment : BaseFragment<FragmentMapsBinding, MapsViewModel>(MapsViewMo
             else -> super.onOptionsItemSelected(item)
         }
     }
+//on MarkerClick + přes observer ty markery....
+
 
 
 

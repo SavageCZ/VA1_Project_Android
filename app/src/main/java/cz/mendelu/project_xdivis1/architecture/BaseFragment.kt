@@ -18,6 +18,7 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
 import com.google.android.gms.maps.internal.zzh
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.RuntimeRemoteException
 import com.google.android.material.snackbar.Snackbar
 import cz.mendelu.project_xdivis1.MapsFragment

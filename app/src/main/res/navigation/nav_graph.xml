@@ -53,8 +53,15 @@
             app:argType="float"
             android:defaultValue="0.0">
         </argument>
+        <action
+            android:id="@+id/action_MapsFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="cz.mendelu.project_xdivis1.NotesFragment"
+        android:label="NotesFragment" />
 
 
 </navigation>

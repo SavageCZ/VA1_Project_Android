@@ -58,6 +58,7 @@ class MarkerActivity : AppCompatActivity(),
     }
 
     /** Called when the user clicks a marker.  */
+
     override fun onMarkerClick(marker: Marker): Boolean {
 
         // Retrieve the data from the marker.

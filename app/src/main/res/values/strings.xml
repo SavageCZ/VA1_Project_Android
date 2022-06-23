@@ -27,4 +27,6 @@
     <string name="on_marker_drag_end">Marker stopped dragging</string>
     <string name="rotation">Rotation</string>
     <string name="state_badge_label">State badge</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
