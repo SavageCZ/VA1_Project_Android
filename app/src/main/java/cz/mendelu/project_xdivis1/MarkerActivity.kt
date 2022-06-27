@@ -1,6 +1,7 @@
 package cz.mendelu.project_xdivis1
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap

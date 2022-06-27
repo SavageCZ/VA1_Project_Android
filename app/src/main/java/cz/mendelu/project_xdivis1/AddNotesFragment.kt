@@ -82,8 +82,8 @@ class AddNotesFragment :
 
         layoutManager = LinearLayoutManager(requireContext())
         adapter = PlanAdapter()
-        binding.usedExerciseList.layoutManager = layoutManager
-        binding.usedExerciseList.adapter = adapter
+        //binding.usedExerciseList.layoutManager = layoutManager
+        //binding.usedExerciseList.adapter = adapter
 
 
         viewModel.id = if(arguments.idPlan != -1L) arguments.idPlan
